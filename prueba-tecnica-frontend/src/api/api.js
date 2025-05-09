@@ -21,3 +21,12 @@ export const fetchOffices = async () => {
     return [];
   }
 };
+export const createEmployee = async (employeeData) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/employees`, employeeData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating employee:", error);
+    throw error;
+  }
+};
