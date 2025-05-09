@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import Navbar from "./components/Navbar";
+import Employees from "./components/Employees";
+import Offices from "./components/Offices";
+import Box from "@mui/material/Box";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [activeTab, setActiveTab] = useState("Empleados");
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "Empleados":
+        return <Employees />;
+      case "Oficinas":
+        return <Offices />;
+      default:
+        return <Employees />;
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div style={styles.container}>
+      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Box sx={styles.content}>{renderContent()}</Box>
+    </div>
+  );
+};
 
-export default App
+const styles = {
+  container: {
+    display: "flex",
+  },
+  content: {
+    marginLeft: "240px",
+    padding: "40px",
+    width: "calc(100% - 240px)",
+    height: "100vh",
+    overflowY: "auto",
+  },
+};
+
+export default App;
