@@ -4,9 +4,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #ffffff;
-  padding: 30px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding: 30px 40px;
   border-radius: 12px;
   width: 350px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
@@ -22,13 +20,15 @@
   font-weight: bold;
 }
 
-.modal-content input {
+.modal-content input,
+.office-item input[type="checkbox"] {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .modal-buttons {
@@ -39,7 +39,8 @@
 }
 
 .create-btn,
-.cancel-btn {
+.cancel-btn,
+.update-btn {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -65,77 +66,6 @@
 .cancel-btn:hover {
   background-color: #ddd;
 }
-.buttons-container {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-.form-label {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #333;
-}
-.form-group {
-  margin-bottom: 16px;
-}
-
-.form-label {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #333;
-  display: block;
-}
-.office-list {
-  max-height: 150px;
-  overflow-y: auto;
-  margin-bottom: 15px;
-  padding-right: 5px;
-}
-
-.office-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.office-list::-webkit-scrollbar-thumb {
-  background-color: #ddd;
-  border-radius: 10px;
-}
-
-.office-list::-webkit-scrollbar-thumb:hover {
-  background-color: #bbb;
-}
-
-.checkbox-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-  gap: 10px;
-}
-
-.checkbox-container input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-.checkbox-container label {
-  cursor: pointer;
-  font-size: 14px;
-  color: #333;
-}
-.modal-checkbox {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.modal-checkbox label {
-  font-size: 14px;
-  color: #333;
-}
 
 .update-btn {
   background-color: #28a745;
@@ -145,13 +75,23 @@
 .update-btn:hover {
   background-color: #218838;
 }
-.edit-offices-modal {
-  max-width: 400px;
-  width: 100%;
-  padding: 20px;
+
+.buttons-container {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 16px;
 }
 
 .office-list {
@@ -174,23 +114,26 @@
   background-color: #bbb;
 }
 
-.office-item {
+.office-item,
+.modal-checkbox {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 5px 0;
 }
 
-.office-item input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-.office-item label {
+.office-item label,
+.modal-checkbox label {
   font-size: 14px;
   color: #333;
   cursor: pointer;
   flex-grow: 1;
   word-wrap: break-word;
+}
+
+.action-button:disabled {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  opacity: 0.6;
 }

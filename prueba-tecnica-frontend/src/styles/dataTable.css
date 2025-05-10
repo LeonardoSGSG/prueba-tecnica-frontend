@@ -29,3 +29,6 @@
 .action-button:hover {
   opacity: 0.8;
 }
+.edit-offices-button {
+  background-color: #867c84;
+}

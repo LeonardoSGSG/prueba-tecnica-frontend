@@ -22,7 +22,8 @@ const DataTable = ({ rows, columns, actions }) => {
               disabled={
                 action.isCreate
                   ? false
-                  : action.className === "edit-button"
+                  : action.className === "edit-button" ||
+                    action.className === "edit-offices-button"
                   ? selectedRows.length !== 1
                   : selectedRows.length === 0
               }
