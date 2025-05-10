@@ -56,7 +56,7 @@ const EditEmployeeOffices = ({ employeeId, onClose, onEmployeeUpdated }) => {
         <h3>Editar Oficinas del Empleado</h3>
         <div className="office-list">
           {offices.map((office) => (
-            <div key={office.id} className="form-group">
+            <div key={office.id} className="checkbox-container">
               <label className="modal-checkbox">
                 <input
                   type="checkbox"

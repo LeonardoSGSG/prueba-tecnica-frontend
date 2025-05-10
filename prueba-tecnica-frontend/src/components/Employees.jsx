@@ -3,7 +3,8 @@ import DataTable from "./DataTable";
 import CreateEmployee from "./CreateEmployee";
 import EditEmployee from "./EditEmployee";
 import EditEmployeeOffices from "./EditEmployeeOffices";
-import { fetchEmployees } from "../api/api";
+import DeleteEmployee from "./DeleteEmployee";
+import { fetchEmployees, deleteEmployee } from "../api/api";
 import "../styles/crud.css";
 
 const columns = [
@@ -20,10 +21,9 @@ const Employees = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isEditOfficesModalOpen, setIsEditOfficesModalOpen] = useState(false);
-
-  const [selectedEmployeeForEdit, setSelectedEmployeeForEdit] = useState(null);
-  const [selectedEmployeeForOffices, setSelectedEmployeeForOffices] =
-    useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+  const [selectedEmployeeIds, setSelectedEmployeeIds] = useState([]);
 
   const loadEmployees = async () => {
     const data = await fetchEmployees();
@@ -46,6 +46,21 @@ const Employees = () => {
     );
   };
 
+  const handleEmployeeDeleted = async () => {
+    try {
+      for (const id of selectedEmployeeIds) {
+        await deleteEmployee(id);
+      }
+      setRows((prevRows) =>
+        prevRows.filter((row) => !selectedEmployeeIds.includes(row.id))
+      );
+      setIsDeleteModalOpen(false);
+      setSelectedEmployeeIds([]);
+    } catch (error) {
+      console.error("Error al eliminar empleados:", error);
+    }
+  };
+
   const actions = [
     {
       label: "Crear empleado",
@@ -59,7 +74,7 @@ const Employees = () => {
       isCreate: false,
       onClick: (selectedIds) => {
         if (selectedIds.length === 1) {
-          setSelectedEmployeeForEdit(selectedIds[0]);
+          setSelectedEmployeeId(selectedIds[0]);
           setIsEditModalOpen(true);
         }
       },
@@ -70,7 +85,7 @@ const Employees = () => {
       isCreate: false,
       onClick: (selectedIds) => {
         if (selectedIds.length === 1) {
-          setSelectedEmployeeForOffices(selectedIds[0]);
+          setSelectedEmployeeId(selectedIds[0]);
           setIsEditOfficesModalOpen(true);
         }
       },
@@ -80,7 +95,10 @@ const Employees = () => {
       className: "delete-button",
       isCreate: false,
       onClick: (selectedIds) => {
-        console.log("Eliminar empleados:", selectedIds);
+        if (selectedIds.length > 0) {
+          setSelectedEmployeeIds(selectedIds);
+          setIsDeleteModalOpen(true);
+        }
       },
     },
   ];
@@ -96,19 +114,27 @@ const Employees = () => {
         />
       )}
 
-      {isEditModalOpen && selectedEmployeeForEdit && (
+      {isEditModalOpen && selectedEmployeeId && (
         <EditEmployee
-          employeeId={selectedEmployeeForEdit}
+          employeeId={selectedEmployeeId}
           onClose={() => setIsEditModalOpen(false)}
           onEmployeeUpdated={handleEmployeeUpdated}
         />
       )}
 
-      {isEditOfficesModalOpen && selectedEmployeeForOffices && (
+      {isEditOfficesModalOpen && selectedEmployeeId && (
         <EditEmployeeOffices
-          employeeId={selectedEmployeeForOffices}
+          employeeId={selectedEmployeeId}
           onClose={() => setIsEditOfficesModalOpen(false)}
           onEmployeeUpdated={handleEmployeeUpdated}
+        />
+      )}
+
+      {isDeleteModalOpen && (
+        <DeleteEmployee
+          selectedIds={selectedEmployeeIds}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={handleEmployeeDeleted}
         />
       )}
     </>
