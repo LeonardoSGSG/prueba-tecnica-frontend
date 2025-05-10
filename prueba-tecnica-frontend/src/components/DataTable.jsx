@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import "../styles/dataTable.css";
 
 const DataTable = ({ rows, columns, actions }) => {
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  const handleSelectionChange = (selection) => {
+    setSelectedRows(selection);
+  };
+
   return (
     <Box sx={{ width: "100%", maxWidth: "100%" }}>
       {actions && (
@@ -12,7 +18,14 @@ const DataTable = ({ rows, columns, actions }) => {
             <button
               key={index}
               className={`action-button ${action.className}`}
-              onClick={action.onClick}
+              onClick={() => action.onClick(selectedRows)}
+              disabled={
+                action.isCreate
+                  ? false
+                  : action.className === "edit-button"
+                  ? selectedRows.length !== 1
+                  : selectedRows.length === 0
+              }
             >
               {action.label}
             </button>
@@ -24,6 +37,11 @@ const DataTable = ({ rows, columns, actions }) => {
         <DataGrid
           rows={rows}
           columns={columns}
+          checkboxSelection
+          disableRowSelectionOnClick
+          onRowSelectionModelChange={(newSelectionModel) => {
+            handleSelectionChange([...newSelectionModel.ids]);
+          }}
           initialState={{
             pagination: {
               paginationModel: {
@@ -32,7 +50,6 @@ const DataTable = ({ rows, columns, actions }) => {
             },
           }}
           pageSizeOptions={[5, 10, 20]}
-          disableRowSelectionOnClick
         />
       </Box>
     </Box>

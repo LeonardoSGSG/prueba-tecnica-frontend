@@ -87,3 +87,110 @@
   color: #333;
   display: block;
 }
+.office-list {
+  max-height: 150px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  padding-right: 5px;
+}
+
+.office-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.office-list::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+.office-list::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.checkbox-container label {
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+.modal-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.modal-checkbox label {
+  font-size: 14px;
+  color: #333;
+}
+
+.update-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.update-btn:hover {
+  background-color: #218838;
+}
+.edit-offices-modal {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.office-list {
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 15px;
+}
+
+.office-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.office-list::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+.office-list::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
+
+.office-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+}
+
+.office-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.office-item label {
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  flex-grow: 1;
+  word-wrap: break-word;
+}
